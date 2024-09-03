@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pb.dart';
 
 class AuthAdapter {
@@ -17,8 +18,7 @@ class AuthAdapter {
     try {
       return userModel.writeToBuffer();
     } catch (e) {
-      // implements error de decode
-      throw Error();
+      throw const InfraError('Erro de Infraestrutura');
     }
   }
 }

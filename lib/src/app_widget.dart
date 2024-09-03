@@ -11,7 +11,6 @@ class AppWidget extends StatelessWidget {
       title: 'Lista',
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFEFEFEF),
-        primarySwatch: Colors.blue,
       ),
       routerConfig: Modular.routerConfig,
     );

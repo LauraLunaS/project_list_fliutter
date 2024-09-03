@@ -48,9 +48,11 @@ class _SignInPageState extends State<SignInPage> with WindowListener {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign In'),
+        title: const Text('Sign In', style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),),
       ),
-      body: Padding(
+      body: Container(
+        width: 600,
+        height: 600,
         padding: const EdgeInsets.all(16.0),
         child: Observer(
           builder: (_) {
@@ -72,10 +74,16 @@ class _SignInPageState extends State<SignInPage> with WindowListener {
                   onChanged: formStore.setPassword,
                 ),
                 const SizedBox(height: 20),
-                ElevatedButton(
+                OutlinedButton(
                   onPressed: () async {
                     await formStore.doLogin();
                   },
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: const Color.fromARGB(255, 0, 71, 129), side: const BorderSide(
+                      color: Color.fromARGB(255, 0, 71, 129),
+                      width: 2,
+                    ),
+                  ),
                   child: formStore.isLoading
                       ? const CircularProgressIndicator()
                       : const Text('Sign In'),

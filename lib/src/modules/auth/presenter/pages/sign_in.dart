@@ -135,7 +135,7 @@ class _SignInPageState extends State<SignInPage> with WindowListener {
                         ),
                         child: formStore.isLoading
                             ? const CircularProgressIndicator()
-                            : const Text('Sign In'),
+                            : const Text('Sign In', style: TextStyle(fontSize: 17)),
                       ),
                       const SizedBox(height: 20),
                       TextButton(

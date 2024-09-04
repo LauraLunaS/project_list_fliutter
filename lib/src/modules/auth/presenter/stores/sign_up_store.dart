@@ -1,4 +1,3 @@
-
 import 'package:mobx/mobx.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/usecases/register_use_case.dart';
 
@@ -23,21 +22,6 @@ abstract class _SignUpStore with Store {
   @observable
   String errorMessage = '';
 
-  @action
-  void setUsername(String value) {
-    username = value;
-  }
-
-  @action
-  void setPassword(String value) {
-    password = value;
-  }
-
-  @action
-  void setConfirmPassword(String value) {
-    confirmPassword = value;
-  }
-
   @observable
   bool isAuth = false;
 
@@ -52,7 +36,36 @@ abstract class _SignUpStore with Store {
       isPasswordMatch;
 
   @action
-  Future<bool> register(String userName, String password, String confirmPassword) async {
+  void setUsername(String value) {
+    username = value;
+    clearErrorMessage();
+  }
+
+  @action
+  void setPassword(String value) {
+    password = value;
+    clearErrorMessage(); 
+  }
+
+  @action
+  void setConfirmPassword(String value) {
+    confirmPassword = value;
+    clearErrorMessage(); 
+  }
+
+  @action
+  void clearErrorMessage() {
+    errorMessage = ''; 
+  }
+
+  @action
+  Future<bool> register(
+    String userName,
+    String password,
+    String confirmPassword,
+  ) async {
+    clearErrorMessage(); 
+
     if (confirmPassword == password) {
       isLoading = true;
       final (result, error) = await registerUseCase.execute(userName, password);
@@ -65,8 +78,6 @@ abstract class _SignUpStore with Store {
         errorMessage = error.message;
         return false;
       }
-    } else {
-      return false;
     }
 
     return false;

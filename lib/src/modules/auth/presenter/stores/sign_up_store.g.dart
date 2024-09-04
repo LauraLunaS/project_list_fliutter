@@ -117,6 +117,17 @@ mixin _$SignUpStore on _SignUpStore, Store {
   }
 
   @override
+  void clearErrorMessage() {
+    final _$actionInfo = _$_SignUpStoreActionController.startAction(
+        name: '_SignUpStore.clearErrorMessage');
+    try {
+      return super.clearErrorMessage();
+    } finally {
+      _$_SignUpStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 isLoading: ${isLoading},

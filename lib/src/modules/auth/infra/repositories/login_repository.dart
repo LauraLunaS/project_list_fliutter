@@ -12,13 +12,7 @@ class LoginRepositoryImpl implements ILoginRepository {
   Future<(User?, CredentialsError?)> login(String username, String password) async {
     try {
       final (user, error) = await datasource.login(username, password);
-      if (error != null) {
-        return (null, error);
-      }
-      if (user == null) {
-        throw const CredentialsError('Invalid response from the server');
-      }
-      return (user, null);
+      return (user, error); 
     } catch (e) {
       throw CredentialsError('An unexpected error occurred: ${e.toString()}');
     }

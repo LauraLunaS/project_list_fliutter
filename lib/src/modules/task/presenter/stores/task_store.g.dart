@@ -55,6 +55,22 @@ mixin _$TaskStore on _TaskStore, Store {
     });
   }
 
+  late final _$isLoadingAtom =
+      Atom(name: '_TaskStore.isLoading', context: context);
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
   late final _$addTaskAsyncAction =
       AsyncAction('_TaskStore.addTask', context: context);
 
@@ -91,7 +107,8 @@ mixin _$TaskStore on _TaskStore, Store {
     return '''
 tasks: ${tasks},
 newTask: ${newTask},
-errorMessage: ${errorMessage}
+errorMessage: ${errorMessage},
+isLoading: ${isLoading}
     ''';
   }
 }

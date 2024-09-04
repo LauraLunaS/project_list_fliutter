@@ -13,6 +13,9 @@ class LoginUseCase {
       if (error != null) {
         throw error;
       }
+      if (user == null) {
+        throw const CredentialsError('Invalid response from the server');
+      }
       return user;
     } catch (e) {
       throw AuthError('Unexpected error during login: ${e.toString()}');

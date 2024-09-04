@@ -141,6 +141,17 @@ mixin _$FormStore on _FormStore, Store {
   }
 
   @override
+  void clearErrorMessage() {
+    final _$actionInfo = _$_FormStoreActionController.startAction(
+        name: '_FormStore.clearErrorMessage');
+    try {
+      return super.clearErrorMessage();
+    } finally {
+      _$_FormStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 isLoading: ${isLoading},

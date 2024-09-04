@@ -38,25 +38,32 @@ abstract class _FormStore with Store {
   @action
   void setUsername(String value) {
     username = value;
+    clearErrorMessage();  
   }
 
   @action
   void setPassword(String value) {
     password = value;
+    clearErrorMessage();  
   }
 
   @computed
   bool get isValid => password.isNotEmpty && username.isNotEmpty;
 
+  @action
+  void clearErrorMessage() {
+    errorMessage = '';  
+  }
 
   @action
   Future<void> doLogin() async {
     if (username.isEmpty || password.isEmpty) {
       errorMessage = 'Please fill in all fields correctly';
+      return;
     }
 
     isLoading = true;
-    errorMessage = '';
+    clearErrorMessage();  
 
     try {
       final user = await loginUseCase.execute(username, password);
@@ -64,7 +71,6 @@ abstract class _FormStore with Store {
       if (user != null) {
         loggedUser = user;
         isLogged = true;
-        errorMessage = '';
       } else {
         errorMessage = 'User not found';
       }

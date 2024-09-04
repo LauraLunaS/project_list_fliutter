@@ -24,6 +24,9 @@ abstract class _TaskStore with Store {
   @observable
   String errorMessage = '';
 
+  @observable
+  bool isLoading = false;
+
   @action
   void setNewTask(String value) {
     newTask = value;
@@ -39,8 +42,8 @@ abstract class _TaskStore with Store {
         tasks.add(actualTask);
         newTask = '';
         if (task.$2 != null) {
-        return true;
-      }
+          return true;
+        }
       } catch (e) {
         errorMessage = 'Failed to add tasks';
       }
@@ -48,14 +51,16 @@ abstract class _TaskStore with Store {
     return false;
   }
 
-
   @action
   Future<void> loadTaskHistory(String userId) async {
+    isLoading = true;
     try {
       List<Task> taskList = await getTaskUseCase.getTasks(userId);
       tasks = ObservableList.of(taskList);
     } catch (e) {
       errorMessage = 'Failed to load tasks';
+    } finally {
+      isLoading = false;
     }
   }
 }

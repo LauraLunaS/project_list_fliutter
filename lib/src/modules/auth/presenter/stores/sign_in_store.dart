@@ -75,7 +75,7 @@ abstract class _FormStore with Store {
         errorMessage = 'User not found';
       }
     } catch (e) {
-      errorMessage = 'Usuário não existe';
+      errorMessage = 'Error';
     } finally {
       isLoading = false;
     }

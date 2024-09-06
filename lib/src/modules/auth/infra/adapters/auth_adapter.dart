@@ -10,7 +10,7 @@ class AuthAdapter {
       }
       return null;  
     } catch (e) {
-      throw Error();
+      throw const InfraError('Erro ao decodificar o proto.');
     }
   }
 
@@ -18,7 +18,7 @@ class AuthAdapter {
     try {
       return userModel.writeToBuffer();
     } catch (e) {
-      throw const InfraError('Erro de Infraestrutura');
+      throw const InfraError('Erro ao codificar o proto.');
     }
   }
 }

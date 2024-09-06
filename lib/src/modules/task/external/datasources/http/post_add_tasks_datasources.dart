@@ -18,10 +18,11 @@ class PostAddTasksDatasource implements ISaveTaskDatasource {
       );
       if (res.statusCode == 200) {
         return true;
+      } else {
+        throw ExternalError('Failed to add task: Status code ${res.statusCode}');
       }
     } catch (e) {
-      throw ExternalError('error to connect with server, $e');
+      throw ExternalError('Error connecting to the server: $e');
     }
-    return null;
   }
 }

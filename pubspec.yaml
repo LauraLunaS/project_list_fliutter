@@ -45,6 +45,7 @@ dependencies:
   mobx_codegen: ^2.6.1
   flutter_mobx: ^2.2.1+1
   provider: ^6.1.2
+  socket_io_client: ^3.0.0-beta.2
 
 dev_dependencies:
   flutter_test:

@@ -24,6 +24,23 @@ mixin _$TaskStore on _TaskStore, Store {
     });
   }
 
+  late final _$identifyServerOutStateAtom =
+      Atom(name: '_TaskStore.identifyServerOutState', context: context);
+
+  @override
+  bool get identifyServerOutState {
+    _$identifyServerOutStateAtom.reportRead();
+    return super.identifyServerOutState;
+  }
+
+  @override
+  set identifyServerOutState(bool value) {
+    _$identifyServerOutStateAtom
+        .reportWrite(value, super.identifyServerOutState, () {
+      super.identifyServerOutState = value;
+    });
+  }
+
   late final _$newTaskAtom = Atom(name: '_TaskStore.newTask', context: context);
 
   @override
@@ -71,6 +88,31 @@ mixin _$TaskStore on _TaskStore, Store {
     });
   }
 
+  late final _$taskCounterAtom =
+      Atom(name: '_TaskStore.taskCounter', context: context);
+
+  @override
+  int get taskCounter {
+    _$taskCounterAtom.reportRead();
+    return super.taskCounter;
+  }
+
+  @override
+  set taskCounter(int value) {
+    _$taskCounterAtom.reportWrite(value, super.taskCounter, () {
+      super.taskCounter = value;
+    });
+  }
+
+  late final _$requestTaskCounterUpdateAsyncAction =
+      AsyncAction('_TaskStore.requestTaskCounterUpdate', context: context);
+
+  @override
+  Future<void> requestTaskCounterUpdate(String userId) {
+    return _$requestTaskCounterUpdateAsyncAction
+        .run(() => super.requestTaskCounterUpdate(userId));
+  }
+
   late final _$addTaskAsyncAction =
       AsyncAction('_TaskStore.addTask', context: context);
 
@@ -103,12 +145,25 @@ mixin _$TaskStore on _TaskStore, Store {
   }
 
   @override
+  void identifyServerOutListener(dynamic _) {
+    final _$actionInfo = _$_TaskStoreActionController.startAction(
+        name: '_TaskStore.identifyServerOutListener');
+    try {
+      return super.identifyServerOutListener(_);
+    } finally {
+      _$_TaskStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 tasks: ${tasks},
+identifyServerOutState: ${identifyServerOutState},
 newTask: ${newTask},
 errorMessage: ${errorMessage},
-isLoading: ${isLoading}
+isLoading: ${isLoading},
+taskCounter: ${taskCounter}
     ''';
   }
 }

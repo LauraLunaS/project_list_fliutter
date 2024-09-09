@@ -2,19 +2,27 @@ import 'package:project_list_fliutter/src/modules/task/domain/errors/error_datas
 import 'package:project_list_fliutter/src/modules/task/external/datasources/socket/socket_cliente.dart';
 import 'package:project_list_fliutter/src/modules/task/infra/datasources/io_counter_datasource.dart';
 
-class IoCounterDatasource implements ICounterDatasource {
+class IoCounterDatasourceExternal implements ICounterDatasource {
   final SocketClient io;
 
-  IoCounterDatasource(this.io);
+  IoCounterDatasourceExternal(this.io);
 
   @override
   Future<void> requestCounterUpdate(String userId, Function function, Function functionAdapter) async {
     try {
       io.sendMessage('update_request', userId);
+    } catch (e) {
+      throw ExternalError('Erro ao solicitar atualização de contagem: $e');
+    }
+  }
+
+  @override
+  Future<void> responseCounterUpdate(Function function, Function functionAdapter) async {
+    try {
 
       io.receiveAdapterMessage('update_response', functionAdapter, function);
     } catch (e) {
-      throw ExternalError('Erro ao solicitar atualização de contagem: $e');
+      throw ExternalError('Erro ao solicitar contagem: $e');
     }
   }
 }

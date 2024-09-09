@@ -16,16 +16,22 @@ class _TaskPageState extends State<TaskPage> with WindowListener {
   late final TaskStore taskStore;
   final TextEditingController _controller = TextEditingController();
   String? userId;
+  bool jaFoi = false;
 
   @override
   void initState() {
     super.initState();
+    print('initState called');
     taskStore = context.read<TaskStore>();
     userId = Modular.args.data?['userId'] as String?;
     if (userId != null) {
       taskStore.loadTaskHistory(userId!);
+      taskStore.requestTaskCounterUpdate(userId!);
+      print('requestTaskCounterUpdate called');
+      print(taskStore.taskCounter);
     }
-  }
+}
+
 
  @override
 Widget build(BuildContext context) {

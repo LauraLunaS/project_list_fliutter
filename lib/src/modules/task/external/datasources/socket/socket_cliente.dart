@@ -3,8 +3,9 @@ import 'package:socket_io_client/socket_io_client.dart';
 
 class SocketClient {
   final Socket socket = io(serverAdrees, {
-    'transports': ['webcocket'],
+    'transports': ['websocket'],
     'autoConnect': false,
+    'namespace': '/counter',
   });
 
   SocketClient() {

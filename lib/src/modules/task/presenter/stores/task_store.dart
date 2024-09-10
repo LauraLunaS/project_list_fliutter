@@ -2,7 +2,6 @@ import 'package:mobx/mobx.dart';
 import 'package:project_list_fliutter/src/modules/task/domain/repositories/io_counter_repository.dart';
 import 'package:project_list_fliutter/src/modules/task/domain/usecases/add_task_use_case.dart';
 import 'package:project_list_fliutter/src/modules/task/domain/usecases/get_task_use_case.dart';
-import 'package:project_list_fliutter/src/modules/task/domain/usecases/io_counter_use_case.dart';
 import 'package:project_list_fliutter/src/modules/task/external/datasources/socket/socket_cliente.dart';
 import 'package:project_list_fliutter/src/modules/task/infra/comm_packages/proto/pb/tasks.pb.dart';
 
@@ -16,15 +15,36 @@ abstract class _TaskStore with Store {
   final ICounterServerRepository _counterServerUseCase;
   final SocketClient _socketClient;
 
-  _TaskStore(this.addTaskUseCase, this.getTaskUseCase, this._counterServerUseCase, this._socketClient) {
+  String? userId;
+
+  _TaskStore(
+    this.addTaskUseCase,
+    this.getTaskUseCase,
+    this._counterServerUseCase,
+    this._socketClient,
+  ) {
     _socketClient.onSocketConnect((_) {
       print("Connected to socket server");
       listenerSocket();
+      initializeUserId();
     });
 
     _socketClient.onSocketError((error) {
       print("Socket error: $error");
     });
+
+    _socketClient.onSocketDisconnect((_) {
+      print("Disconnected from socket server");
+    });
+  }
+
+  @action
+  void initializeUserId() {
+    if (userId != null) {
+      requestTaskCounterUpdate(userId!);
+    } else {
+      print(userId);
+    }
   }
 
   @observable
@@ -52,40 +72,28 @@ abstract class _TaskStore with Store {
     newTask = value;
   }
 
-  @action
-  void identifyServerOutListener(_) {
-    identifyServerOutState = true;
-  }
-
   void listenerSocket() {
-  _socketClient.onSocketConnect((_) {
-    print("Connected to socket server");
-  });
-
-  _socketClient.onSocketError((error) {
-    print("Socket error: $error");
-  });
-
-  _counterServerUseCase.responseCounterUpdate(
-    (int updatedCount) {
-      taskCounter = updatedCount;
-    },
-    (data) => int.parse(data)
-  );
-}
+    _socketClient.receiveAdapterMessage('update_response', (data) {
+      print("Recebendo dados: $data");
+      return int.parse(data);
+    }, (count) {
+      runInAction(() {
+        taskCounter = count;
+      });
+      print("Contador de tasks atualizado via socket: $count");
+    });
+  }
 
   @action
   Future<void> requestTaskCounterUpdate(String userId) async {
     try {
-      _counterServerUseCase.requestCounterUpdate(
-        userId,
-        (int updatedCount) {
-          taskCounter = updatedCount;
-        },
-        (data) => int.parse(data),
-      );
+      print('Sending request for task counter update for user: $userId');
+      _socketClient.sendMessage('request_counter_update', userId);
     } catch (e) {
-      errorMessage = 'Failed to update task counter';
+      runInAction(() {
+        errorMessage = 'Falha ao atualizar o contador de tarefas';
+      });
+      print("Erro: $e");
     }
   }
 

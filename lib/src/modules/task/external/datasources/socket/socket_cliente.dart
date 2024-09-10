@@ -4,8 +4,7 @@ import 'package:socket_io_client/socket_io_client.dart';
 class SocketClient {
   final Socket socket = io(serverAdrees, {
     'transports': ['websocket'],
-    'autoConnect': false,
-    'namespace': '/counter',
+    'autoConnect': false
   });
 
   SocketClient() {
@@ -17,41 +16,39 @@ class SocketClient {
   }
 
   void sendMessage(String event, dynamic message) {
-    socket.emit(event, message);
+    try {
+      socket.emit(event, message);
+      print("Mensagem enviada: $event -> $message");
+    } catch (e) {
+      print("Erro ao enviar mensagem: $e");
+    }
+  }
+  
+
+  void receiveAdapterMessage(String event, Function functionAdapter, Function function) {
+    try {
+      socket.on(event, (data) {
+        final dataAdapter = functionAdapter(data);
+        function(dataAdapter);
+      });
+    } catch (e) {
+      print("Erro ao receber mensagem: $e");
+    }
   }
 
-  void receiveSimpleMessage(
-    String event, Function function
-  ) {
-    socket.on(event, (data) => function (data));
-  }
-
-  void receiveAdapterMessage(
-    String event, Function funcionAdapter, Function function
-  ) {
-    socket.on(event, (data) {
-      final dataAdapter = funcionAdapter(data);
-      function(dataAdapter);
-    });
-  }
-
-  void onSocketDisconnect(Function function) {
+  void onSocketDisconnect(Function(dynamic) function) {
     socket.onDisconnect((data) => function(data));
   }
 
-  void onSocketConnect(Function function) {
+  void onSocketConnect(Function(dynamic)function) {
     socket.onConnect((data) => function(data));
   }
 
-  void onSocketConnectError(Function function) {
-    socket.onConnectError((data) => function(data));
-  }
-
-  void onSocketError(Function function) {
+  void onSocketError(Function(dynamic) function) {
     socket.onError((data) => function(data));
   }
 
-  void onSocketReconnect(Function function) {
+  void onSocketReconnect(Function(dynamic) function) {
     socket.onReconnect((data) => function(data));
   }
 
@@ -62,6 +59,4 @@ class SocketClient {
   void dispose() {
     socket.dispose();
   }
-
-
 }

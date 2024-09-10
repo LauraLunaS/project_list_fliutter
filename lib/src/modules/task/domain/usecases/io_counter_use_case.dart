@@ -13,7 +13,7 @@ class GetCounterTaskUseCase implements ICounterServerRepository {
       _counterTaskDatasource.requestCounterUpdate(
         userId, 
         functionFromUseCase, 
-        functionAdapter
+        functionAdapter,
       );
     } catch (e) {
       throw InfraError('Não foi possível solicitar a atualização da contagem: $e');
@@ -25,10 +25,11 @@ class GetCounterTaskUseCase implements ICounterServerRepository {
     try {
       _counterTaskDatasource.responseCounterUpdate(
         function, 
-        functionAdapter
+        functionAdapter,
       );
     } catch (e) {
       throw InfraError('Não foi possível obter a contagem de tasks: $e');
     }
   }
 }
+

@@ -145,17 +145,6 @@ mixin _$TaskStore on _TaskStore, Store {
   }
 
   @override
-  void identifyServerOutListener(dynamic _) {
-    final _$actionInfo = _$_TaskStoreActionController.startAction(
-        name: '_TaskStore.identifyServerOutListener');
-    try {
-      return super.identifyServerOutListener(_);
-    } finally {
-      _$_TaskStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 tasks: ${tasks},

@@ -8,15 +8,6 @@ class IoCounterDatasourceExternal implements ICounterDatasource {
   IoCounterDatasourceExternal(this.io);
 
   @override
-  Future<void> requestCounterUpdate(String userId, Function function, Function functionAdapter) async {
-    try {
-      io.sendMessage('update_request', userId);
-    } catch (e) {
-      throw ExternalError('Erro ao solicitar atualização de contagem: $e');
-    }
-  }
-
-  @override
   Future<void> responseCounterUpdate(Function function) async {
     try {
 
@@ -27,7 +18,7 @@ class IoCounterDatasourceExternal implements ICounterDatasource {
   }
   
   @override
-  void requestCounterUpdate2(String userId) {
+  void requestCounterUpdate(String userId) {
      try {
       io.sendMessage('update_request', userId);
     } catch (e) {

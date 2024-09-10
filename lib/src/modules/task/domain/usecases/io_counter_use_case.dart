@@ -23,7 +23,7 @@ class IoCounterUsecase implements IIoCounterUsecase{
         function
       );
     } catch (e) {
-      throw InfraError('Não foi possível obter a contagem de tasks: $e');
+      throw DomainError('Unable to get task count: $e');
     }
   }
   }

@@ -10,8 +10,10 @@ class RegisterUseCase {
     try {
       final (success, error) = await repository.register(username, password);
       return (success, error);
+      
     } on ExternalError catch (e) {
       return (null, CredentialsError('Failed to register: ${e.message}', e.stackTrace));
+
     } catch (e, stackTrace) {
       return (null, CredentialsError('Unexpected error during registration', stackTrace));
     }

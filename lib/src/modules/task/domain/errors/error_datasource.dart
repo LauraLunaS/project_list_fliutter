@@ -20,7 +20,6 @@ class CreateTaskError extends TasksError {
   const CreateTaskError(super.message, [super.stackTrace]);
 }
 
-// erro de camadas
 
 class DomainError extends TasksError {
   const DomainError(super.message, [super.stackTrace]);
@@ -34,7 +33,4 @@ class InfraError extends TasksError {
   const InfraError(super.message, [super.stackTrace]);
 }
 
-// class RemoveTaskError extends TasksError {
-//   const RemoveTaskError(super.message, [super.stackTrace]);
-// }
 

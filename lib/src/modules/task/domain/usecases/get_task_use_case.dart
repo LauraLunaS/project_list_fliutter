@@ -10,8 +10,8 @@ class GetTaskUseCase {
   Future<List<Task>> getTasks(String userId) async {
     try {
       return await repository.getTasks(userId);
-    } on ExternalError catch (e) {
-      throw GetTaskError('Failed to get tasks: ${e.message}', e.stackTrace);
+    } on DomainError catch (e) {
+      throw DomainError('Failed to get tasks: ${e.message}', e.stackTrace);
     } catch (e, stackTrace) {
       throw TasksError('Unexpected error', stackTrace);
     }

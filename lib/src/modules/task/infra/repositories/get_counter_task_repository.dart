@@ -14,12 +14,12 @@ class GetCounterTaskRepositoryImpl implements ICounterServerRepository {
         function
       );
     } catch (e) {
-      throw InfraError('Não foi possível obter a contagem de tasks: $e');
+      throw InfraError('Unable to get task count: ${e.toString()}');
     }
   }
   
   @override
   void requestCounterUpdate(String userId) {
-    _counterTaskDatasource.requestCounterUpdate2(userId);
+    _counterTaskDatasource.requestCounterUpdate(userId);
   }
 }

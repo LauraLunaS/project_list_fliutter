@@ -4,6 +4,7 @@ import 'package:project_list_fliutter/src/modules/task/infra/datasources/io_coun
 
 abstract class IIoCounterUsecase{
   void requestCounterUpdate2(String userId);
+  void responseCounterUpdate(Function function);
 }
 
 class IoCounterUsecase implements IIoCounterUsecase{
@@ -16,7 +17,18 @@ class IoCounterUsecase implements IIoCounterUsecase{
     _repository.requestCounterUpdate2(userId);
   }
   
-}
+  @override
+  void responseCounterUpdate(Function function) {
+    try {
+      _repository.responseCounterUpdate(
+        function
+      );
+    } catch (e) {
+      throw InfraError('Não foi possível obter a contagem de tasks: $e');
+    }
+  }
+  }
+
 
 class GetCounterTaskUseCase implements ICounterServerRepository {
   final ICounterDatasource _counterTaskDatasource;
@@ -37,11 +49,10 @@ class GetCounterTaskUseCase implements ICounterServerRepository {
   }
 
   @override
-  void responseCounterUpdate(Function function, Function functionAdapter) {
+  void responseCounterUpdate(Function function) {
     try {
       _counterTaskDatasource.responseCounterUpdate(
-        function, 
-        functionAdapter,
+        function
       );
     } catch (e) {
       throw InfraError('Não foi possível obter a contagem de tasks: $e');
@@ -50,7 +61,8 @@ class GetCounterTaskUseCase implements ICounterServerRepository {
   
   @override
   void requestCounterUpdate2(String userId) {
-    
+    // TODO: implement requestCounterUpdate2
   }
+ 
 }
 

@@ -20,7 +20,6 @@ class _TaskPageState extends State<TaskPage> with WindowListener {
   @override
   void initState() {
     super.initState();
-    print('initState called');
     taskStore = context.read<TaskStore>();
     userId = Modular.args.data?['userId'] as String?;
 
@@ -28,7 +27,6 @@ class _TaskPageState extends State<TaskPage> with WindowListener {
       taskStore.loadTaskHistory(userId!);
       taskStore.requestTaskCounterUpdate(userId!);
       taskStore.listenerSocket;
-      print('requestTaskCounterUpdate called');
     }
   }
 

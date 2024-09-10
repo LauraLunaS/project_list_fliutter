@@ -25,12 +25,8 @@ class SocketClient {
     }
   }
 
-  void receiveAdapterMessage(
-      String event, Function functionAdapter, Function function) {
-    socket.on(event, (data) {
-      final dataAdapter = functionAdapter(data);
-      function(dataAdapter);
-    });
+  void receiveAdapterMessage(String event, Function function) {
+    socket.on(event, (data) => function(data));
   }
 
   void onSocketDisconnect(Function(dynamic) function) {

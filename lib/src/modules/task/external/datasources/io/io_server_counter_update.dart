@@ -17,10 +17,10 @@ class IoCounterDatasourceExternal implements ICounterDatasource {
   }
 
   @override
-  Future<void> responseCounterUpdate(Function function, Function functionAdapter) async {
+  Future<void> responseCounterUpdate(Function function) async {
     try {
 
-      io.receiveAdapterMessage('update_response', functionAdapter, function);
+      io.receiveAdapterMessage('update_response', function);
     } catch (e) {
       throw ExternalError('Erro ao solicitar contagem: $e');
     }

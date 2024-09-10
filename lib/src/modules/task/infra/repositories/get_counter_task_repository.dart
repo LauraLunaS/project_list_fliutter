@@ -22,11 +22,10 @@ class GetCounterTaskRepositoryImpl implements ICounterServerRepository {
   }
 
   @override
-  void responseCounterUpdate(Function function, Function functionAdapter) {
+  void responseCounterUpdate(Function function) {
     try {
       _counterTaskDatasource.responseCounterUpdate(
-        function, 
-        functionAdapter
+        function
       );
     } catch (e) {
       throw InfraError('Não foi possível obter a contagem de tasks: $e');

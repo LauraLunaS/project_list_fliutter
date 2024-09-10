@@ -1,5 +1,4 @@
 import 'package:mobx/mobx.dart';
-import 'package:project_list_fliutter/src/modules/task/domain/repositories/io_counter_repository.dart';
 import 'package:project_list_fliutter/src/modules/task/domain/usecases/add_task_use_case.dart';
 import 'package:project_list_fliutter/src/modules/task/domain/usecases/get_task_use_case.dart';
 import 'package:project_list_fliutter/src/modules/task/domain/usecases/io_counter_use_case.dart';
@@ -25,17 +24,12 @@ abstract class ITaskStore with Store {
     this._socketClient,
   ) {
     _socketClient.onSocketConnect((_) {
-      print("Connected to socket server");
       listenerSocket(listenerSocket);
     });
 
-    _socketClient.onSocketError((error) {
-      print("Socket error: $error");
-    });
+    _socketClient.onSocketError((error) {});
 
-    _socketClient.onSocketDisconnect((_) {
-      print("Disconnected from socket server");
-    });
+    _socketClient.onSocketDisconnect((_) {});
   }
 
   @observable
@@ -64,21 +58,16 @@ abstract class ITaskStore with Store {
   }
 
   void listenerSocket(data) {
-  //   _counterServerUseCase.responseCounterUpdate((data) {
-  //     print("Recebendo dados: $data");
-  //     return int.parse(data);
-  //   }, (count) {
-  //     runInAction(() {
-  //       taskCounter = count;
-  //     });
-  //     print("Contador de tasks atualizado via socket: $count");
-  //   });
+    _counterServerUseCase.responseCounterUpdate(
+      (data) {
+        taskCounter = int.parse(data);
+      },
+    );
   }
 
   @action
   Future<void> requestTaskCounterUpdate(String userId) async {
     try {
-      print('Sending request for task counter update for user: $userId');
       _counterServerUseCase.requestCounterUpdate2(userId);
     } catch (e) {
       errorMessage = 'Falha ao atualizar o contador de tarefas';

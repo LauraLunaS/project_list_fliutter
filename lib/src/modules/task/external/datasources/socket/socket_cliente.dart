@@ -17,12 +17,7 @@ class SocketClient {
   }
 
   void sendMessage(String event, dynamic message) {
-    try {
-      socket.emit(event, message);
-      print("Mensagem enviada: $event -> $message");
-    } catch (e) {
-      print("Erro ao enviar mensagem: $e");
-    }
+    socket.emit(event, message);
   }
 
   void receiveAdapterMessage(String event, Function function) {

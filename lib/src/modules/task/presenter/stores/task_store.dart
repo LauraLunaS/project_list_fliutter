@@ -68,7 +68,7 @@ abstract class ITaskStore with Store {
   @action
   Future<void> requestTaskCounterUpdate(String userId) async {
     try {
-      _counterServerUseCase.requestCounterUpdate2(userId);
+      _counterServerUseCase.requestCounterUpdate(userId);
     } catch (e) {
       errorMessage = 'Falha ao atualizar o contador de tarefas';
     }

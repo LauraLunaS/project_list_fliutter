@@ -11,7 +11,7 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Lista',
       theme: ThemeData(
-        scaffoldBackgroundColor: Color.fromARGB(255, 17, 16, 56),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 17, 16, 56),
         textTheme: GoogleFonts.openSansTextTheme(
           Theme.of(context).textTheme,
         ),

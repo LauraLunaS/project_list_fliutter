@@ -4,12 +4,12 @@ import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto
 
 part 'sign_in_store.g.dart';
 
-class FormStore = _FormStore with _$FormStore;
+class FormStore = IFormStore with _$FormStore;
 
-abstract class _FormStore with Store {
+abstract class IFormStore with Store {
   final LoginUseCase loginUseCase;
 
-  _FormStore(this.loginUseCase);
+  IFormStore(this.loginUseCase);
 
   String username = '';
 

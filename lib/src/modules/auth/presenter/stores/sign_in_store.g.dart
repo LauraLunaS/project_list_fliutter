@@ -8,16 +8,16 @@ part of 'sign_in_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$FormStore on _FormStore, Store {
+mixin _$FormStore on IFormStore, Store {
   Computed<bool>? _$isValidComputed;
 
   @override
   bool get isValid => (_$isValidComputed ??=
-          Computed<bool>(() => super.isValid, name: '_FormStore.isValid'))
+          Computed<bool>(() => super.isValid, name: 'IFormStore.isValid'))
       .value;
 
   late final _$isLoadingAtom =
-      Atom(name: '_FormStore.isLoading', context: context);
+      Atom(name: 'IFormStore.isLoading', context: context);
 
   @override
   bool get isLoading {
@@ -33,7 +33,7 @@ mixin _$FormStore on _FormStore, Store {
   }
 
   late final _$isLoggedAtom =
-      Atom(name: '_FormStore.isLogged', context: context);
+      Atom(name: 'IFormStore.isLogged', context: context);
 
   @override
   bool get isLogged {
@@ -49,7 +49,7 @@ mixin _$FormStore on _FormStore, Store {
   }
 
   late final _$errorMessageAtom =
-      Atom(name: '_FormStore.errorMessage', context: context);
+      Atom(name: 'IFormStore.errorMessage', context: context);
 
   @override
   String get errorMessage {
@@ -65,7 +65,7 @@ mixin _$FormStore on _FormStore, Store {
   }
 
   late final _$navigatePageAtom =
-      Atom(name: '_FormStore.navigatePage', context: context);
+      Atom(name: 'IFormStore.navigatePage', context: context);
 
   @override
   bool get navigatePage {
@@ -81,7 +81,7 @@ mixin _$FormStore on _FormStore, Store {
   }
 
   late final _$loggedUserAtom =
-      Atom(name: '_FormStore.loggedUser', context: context);
+      Atom(name: 'IFormStore.loggedUser', context: context);
 
   @override
   User? get loggedUser {
@@ -97,57 +97,57 @@ mixin _$FormStore on _FormStore, Store {
   }
 
   late final _$doLoginAsyncAction =
-      AsyncAction('_FormStore.doLogin', context: context);
+      AsyncAction('IFormStore.doLogin', context: context);
 
   @override
   Future<void> doLogin() {
     return _$doLoginAsyncAction.run(() => super.doLogin());
   }
 
-  late final _$_FormStoreActionController =
-      ActionController(name: '_FormStore', context: context);
+  late final _$IFormStoreActionController =
+      ActionController(name: 'IFormStore', context: context);
 
   @override
   void linkToPage() {
     final _$actionInfo =
-        _$_FormStoreActionController.startAction(name: '_FormStore.linkToPage');
+        _$IFormStoreActionController.startAction(name: 'IFormStore.linkToPage');
     try {
       return super.linkToPage();
     } finally {
-      _$_FormStoreActionController.endAction(_$actionInfo);
+      _$IFormStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setUsername(String value) {
-    final _$actionInfo = _$_FormStoreActionController.startAction(
-        name: '_FormStore.setUsername');
+    final _$actionInfo = _$IFormStoreActionController.startAction(
+        name: 'IFormStore.setUsername');
     try {
       return super.setUsername(value);
     } finally {
-      _$_FormStoreActionController.endAction(_$actionInfo);
+      _$IFormStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setPassword(String value) {
-    final _$actionInfo = _$_FormStoreActionController.startAction(
-        name: '_FormStore.setPassword');
+    final _$actionInfo = _$IFormStoreActionController.startAction(
+        name: 'IFormStore.setPassword');
     try {
       return super.setPassword(value);
     } finally {
-      _$_FormStoreActionController.endAction(_$actionInfo);
+      _$IFormStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void clearErrorMessage() {
-    final _$actionInfo = _$_FormStoreActionController.startAction(
-        name: '_FormStore.clearErrorMessage');
+    final _$actionInfo = _$IFormStoreActionController.startAction(
+        name: 'IFormStore.clearErrorMessage');
     try {
       return super.clearErrorMessage();
     } finally {
-      _$_FormStoreActionController.endAction(_$actionInfo);
+      _$IFormStoreActionController.endAction(_$actionInfo);
     }
   }
 

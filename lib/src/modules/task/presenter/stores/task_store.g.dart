@@ -8,8 +8,8 @@ part of 'task_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$TaskStore on _TaskStore, Store {
-  late final _$tasksAtom = Atom(name: '_TaskStore.tasks', context: context);
+mixin _$TaskStore on ITaskStore, Store {
+  late final _$tasksAtom = Atom(name: 'ITaskStore.tasks', context: context);
 
   @override
   List<Task> get tasks {
@@ -25,7 +25,7 @@ mixin _$TaskStore on _TaskStore, Store {
   }
 
   late final _$identifyServerOutStateAtom =
-      Atom(name: '_TaskStore.identifyServerOutState', context: context);
+      Atom(name: 'ITaskStore.identifyServerOutState', context: context);
 
   @override
   bool get identifyServerOutState {
@@ -41,7 +41,7 @@ mixin _$TaskStore on _TaskStore, Store {
     });
   }
 
-  late final _$newTaskAtom = Atom(name: '_TaskStore.newTask', context: context);
+  late final _$newTaskAtom = Atom(name: 'ITaskStore.newTask', context: context);
 
   @override
   String get newTask {
@@ -57,7 +57,7 @@ mixin _$TaskStore on _TaskStore, Store {
   }
 
   late final _$errorMessageAtom =
-      Atom(name: '_TaskStore.errorMessage', context: context);
+      Atom(name: 'ITaskStore.errorMessage', context: context);
 
   @override
   String get errorMessage {
@@ -73,7 +73,7 @@ mixin _$TaskStore on _TaskStore, Store {
   }
 
   late final _$isLoadingAtom =
-      Atom(name: '_TaskStore.isLoading', context: context);
+      Atom(name: 'ITaskStore.isLoading', context: context);
 
   @override
   bool get isLoading {
@@ -89,7 +89,7 @@ mixin _$TaskStore on _TaskStore, Store {
   }
 
   late final _$taskCounterAtom =
-      Atom(name: '_TaskStore.taskCounter', context: context);
+      Atom(name: 'ITaskStore.taskCounter', context: context);
 
   @override
   int get taskCounter {
@@ -105,7 +105,7 @@ mixin _$TaskStore on _TaskStore, Store {
   }
 
   late final _$requestTaskCounterUpdateAsyncAction =
-      AsyncAction('_TaskStore.requestTaskCounterUpdate', context: context);
+      AsyncAction('ITaskStore.requestTaskCounterUpdate', context: context);
 
   @override
   Future<void> requestTaskCounterUpdate(String userId) {
@@ -114,7 +114,7 @@ mixin _$TaskStore on _TaskStore, Store {
   }
 
   late final _$addTaskAsyncAction =
-      AsyncAction('_TaskStore.addTask', context: context);
+      AsyncAction('ITaskStore.addTask', context: context);
 
   @override
   Future<bool> addTask(String task, String userId) {
@@ -122,7 +122,7 @@ mixin _$TaskStore on _TaskStore, Store {
   }
 
   late final _$loadTaskHistoryAsyncAction =
-      AsyncAction('_TaskStore.loadTaskHistory', context: context);
+      AsyncAction('ITaskStore.loadTaskHistory', context: context);
 
   @override
   Future<void> loadTaskHistory(String userId) {
@@ -130,17 +130,17 @@ mixin _$TaskStore on _TaskStore, Store {
         .run(() => super.loadTaskHistory(userId));
   }
 
-  late final _$_TaskStoreActionController =
-      ActionController(name: '_TaskStore', context: context);
+  late final _$ITaskStoreActionController =
+      ActionController(name: 'ITaskStore', context: context);
 
   @override
   void setNewTask(String value) {
     final _$actionInfo =
-        _$_TaskStoreActionController.startAction(name: '_TaskStore.setNewTask');
+        _$ITaskStoreActionController.startAction(name: 'ITaskStore.setNewTask');
     try {
       return super.setNewTask(value);
     } finally {
-      _$_TaskStoreActionController.endAction(_$actionInfo);
+      _$ITaskStoreActionController.endAction(_$actionInfo);
     }
   }
 

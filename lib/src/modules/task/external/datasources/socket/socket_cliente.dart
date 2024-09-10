@@ -2,9 +2,10 @@ import 'package:project_list_fliutter/src/modules/task/external/datasources/serv
 import 'package:socket_io_client/socket_io_client.dart';
 
 class SocketClient {
-  final Socket socket = io(serverAdrees, {
+  final Socket socket = io('$serverAdrees/counter', {
     'transports': ['websocket'],
-    'autoConnect': false
+    'autoConnect': false,
+    
   });
 
   SocketClient() {
@@ -23,17 +24,13 @@ class SocketClient {
       print("Erro ao enviar mensagem: $e");
     }
   }
-  
 
-  void receiveAdapterMessage(String event, Function functionAdapter, Function function) {
-    try {
-      socket.on(event, (data) {
-        final dataAdapter = functionAdapter(data);
-        function(dataAdapter);
-      });
-    } catch (e) {
-      print("Erro ao receber mensagem: $e");
-    }
+  void receiveAdapterMessage(
+      String event, Function functionAdapter, Function function) {
+    socket.on(event, (data) {
+      final dataAdapter = functionAdapter(data);
+      function(dataAdapter);
+    });
   }
 
   void onSocketDisconnect(Function(dynamic) function) {

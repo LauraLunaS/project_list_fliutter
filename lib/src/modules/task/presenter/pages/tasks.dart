@@ -27,6 +27,7 @@ class _TaskPageState extends State<TaskPage> with WindowListener {
     if (userId != null) {
       taskStore.loadTaskHistory(userId!);
       taskStore.requestTaskCounterUpdate(userId!);
+      taskStore.listenerSocket;
       print('requestTaskCounterUpdate called');
     }
   }

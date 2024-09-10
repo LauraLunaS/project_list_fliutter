@@ -32,4 +32,9 @@ class GetCounterTaskRepositoryImpl implements ICounterServerRepository {
       throw InfraError('Não foi possível obter a contagem de tasks: $e');
     }
   }
+  
+  @override
+  void requestCounterUpdate2(String userId) {
+    _counterTaskDatasource.requestCounterUpdate2(userId);
+  }
 }

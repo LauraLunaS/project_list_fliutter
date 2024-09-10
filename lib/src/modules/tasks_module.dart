@@ -24,6 +24,7 @@ class TaskModule extends Module {
   void binds(i) {
     i.add(http.Client.new);
 
+
     //datasources
     i.add<ISaveTaskDatasource>(PostAddTasksDatasource.new);
     i.add<IGetAllTasksDatasource>(GetTaskDatasourceExternal.new);
@@ -37,6 +38,7 @@ class TaskModule extends Module {
 
     i.add<GetTaskUseCase>(GetTaskUseCase.new);
     i.add<AddTaskUseCase>(AddTaskUseCase.new);
+    i.add<IIoCounterUsecase>(IoCounterUsecase.new);
 
     //repository
 

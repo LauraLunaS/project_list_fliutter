@@ -25,4 +25,13 @@ class IoCounterDatasourceExternal implements ICounterDatasource {
       throw ExternalError('Erro ao solicitar contagem: $e');
     }
   }
+  
+  @override
+  void requestCounterUpdate2(String userId) {
+     try {
+      io.sendMessage('update_request', userId);
+    } catch (e) {
+      throw ExternalError('Erro ao solicitar atualização de contagem: $e');
+    }
+  }
 }

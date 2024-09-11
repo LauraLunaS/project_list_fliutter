@@ -33,3 +33,4 @@ class InfraError extends TasksError {
 }
 
 
+// implements error update (SOCKET)

@@ -5,7 +5,6 @@ import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datas
 import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pb.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/repositories/login_repository.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/usecases/login_use_case.dart';
-import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pbjson.dart';
 
 import 'login_test.mocks.dart';
 

@@ -6,5 +6,4 @@ const addTaskRoute = '$serverAdrees/add_task';
 const updateRequestRoute = '$serverAdrees/update_request';
 
 // retorna o total de tarefas
-const updateResponseRoute = '$serverAdrees/update_response';
-
+const updateResponseRoute = '$serverAdrees/get_tasks';

@@ -1,6 +1,10 @@
 import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/repositories/register_repository.dart'; 
 
+abstract class IRegisterUser {
+   Future<(bool?, CredentialsError?)> execute(String username, String password);
+}
+
 class RegisterUseCase {
   final IRegisterRepository repository;
 

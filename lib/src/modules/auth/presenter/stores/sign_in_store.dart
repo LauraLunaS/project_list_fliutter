@@ -63,10 +63,15 @@ abstract class IFormStore with Store {
     }
 
     isLoading = true;
-    clearErrorMessage();  
+    clearErrorMessage();
 
     try {
-      final user = await loginUseCase.execute(username, password);
+      final (error, user) = await loginUseCase.execute(username, password); 
+
+      if (error != null) {
+        errorMessage = error.message; 
+        return;
+      }
 
       if (user != null) {
         loggedUser = user;
@@ -75,9 +80,10 @@ abstract class IFormStore with Store {
         errorMessage = 'User not found';
       }
     } catch (e) {
-      errorMessage = 'Error';
+      errorMessage = 'Unexpected error: ${e.toString()}';
     } finally {
       isLoading = false;
     }
   }
+
 }

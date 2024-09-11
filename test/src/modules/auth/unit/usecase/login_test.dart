@@ -5,6 +5,7 @@ import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datas
 import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pb.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/repositories/login_repository.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/usecases/login_use_case.dart';
+import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pbjson.dart';
 
 import 'login_test.mocks.dart';
 
@@ -19,18 +20,19 @@ void main() {
   });
 
   test('Login com sucesso', () async {
-    final user = User(); 
-    const error = CredentialsError('Aaa');
+
+    final user = User();
     
     when(loginRepository.login(user.name, user.password))
-        .thenAnswer((_) async => ((user, null)));
+        .thenAnswer((_) async => (user, null));
 
-    final result = await loginUseCase.execute(user.name, user.password);
+    final (loginError, result) = await loginUseCase.execute(user.name, user.password);
 
-    expect(error, null);
-    expect(result, isNotNull);
-    expect(result, user);  
+    expect(loginError, isNull);  // nao deve haver erro
+    expect(result, isNotNull);   // o resultado deve conter um objeto User
+    expect(result, user);        // o resultado deve ser o mesmo User retornado
   });
+
 
   test('Erro de credenciais', () async {
     final user = User(); 
@@ -39,10 +41,15 @@ void main() {
     when(loginRepository.login(user.name, user.password))
         .thenAnswer((_) async => (null, error));
 
-    final (loginError, result) = await loginUseCase.execute('wrong_username', 'wrong_password');
+    final (loginError, result) = await loginUseCase.execute(user.name, user.password);
 
+    //loginErro não é nulo
     expect(loginError, isNotNull);
+
+    // garante que o erro retornado seja exatamente o credentialsError
     expect(loginError, error);
+
+    //confirma que o result é null
     expect(result, isNull);
   });
 }

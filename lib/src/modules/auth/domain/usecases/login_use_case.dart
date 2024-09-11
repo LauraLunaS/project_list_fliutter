@@ -23,7 +23,7 @@ class LoginUseCase implements ILoginRecovery {
       }
       return (null, user);  
     } catch (e) {
-      throw AuthError('Unexpected error during login: ${e.toString()}');
+      throw CredentialsError('Unexpected error during login: ${e.toString()}');
     }
   }
 }

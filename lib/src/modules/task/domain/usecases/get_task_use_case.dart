@@ -2,11 +2,16 @@ import 'package:project_list_fliutter/src/modules/task/domain/errors/error_datas
 import 'package:project_list_fliutter/src/modules/task/domain/repositories/get_task_repository.dart';
 import 'package:project_list_fliutter/src/modules/task/infra/comm_packages/proto/pb/tasks.pb.dart';
 
-class GetTaskUseCase {
+abstract class IGetTaskUseCase {
+  Future<List<Task>> getTasks(String userId);
+}
+
+class GetTaskUseCase implements IGetTaskUseCase {
   final IGetTaskRepository repository;
 
   GetTaskUseCase(this.repository);
 
+  @override
   Future<List<Task>> getTasks(String userId) async {
     try {
       return await repository.getTasks(userId);

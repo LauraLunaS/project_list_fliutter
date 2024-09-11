@@ -36,8 +36,8 @@ class TaskModule extends Module {
 
     //use-cases
 
-    i.add<GetTaskUseCase>(GetTaskUseCase.new);
-    i.add<AddTaskUseCase>(AddTaskUseCase.new);
+    i.add<IGetTaskUseCase>(GetTaskUseCase.new);
+    i.add<IAddTaskUseCase>(AddTaskUseCase.new);
     i.add<IIoCounterUsecase>(IoCounterUsecase.new);
 
     //repository

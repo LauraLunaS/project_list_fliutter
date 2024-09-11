@@ -20,7 +20,6 @@ class CreateTaskError extends TasksError {
   const CreateTaskError(super.message, [super.stackTrace]);
 }
 
-
 class DomainError extends TasksError {
   const DomainError(super.message, [super.stackTrace]);
 }

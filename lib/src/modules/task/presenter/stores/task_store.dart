@@ -10,8 +10,8 @@ part 'task_store.g.dart';
 class TaskStore = ITaskStore with _$TaskStore;
 
 abstract class ITaskStore with Store {
-  final AddTaskUseCase addTaskUseCase;
-  final GetTaskUseCase getTaskUseCase;
+  final IAddTaskUseCase addTaskUseCase;
+  final IGetTaskUseCase getTaskUseCase;
   final IIoCounterUsecase _counterServerUseCase;
   final SocketClient _socketClient;
 

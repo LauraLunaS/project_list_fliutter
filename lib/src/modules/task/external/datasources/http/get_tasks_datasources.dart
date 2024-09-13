@@ -23,15 +23,18 @@ class GetTaskDatasourceExternal implements IGetAllTasksDatasource {
       if (response.statusCode == 200) {
         final Uint8List responseBodyBytes = response.bodyBytes;
         final tasksProto = Tasks.fromBuffer(responseBodyBytes);
-      
+
         return tasksProto.tasks
             .map((taskProto) => TaskAdapter.decodeProto(taskProto.writeToBuffer()))
             .toList();
       } else {
-        throw ExternalError('Failed to load tasks: Status code ${response.statusCode}');
+        throw const ExternalError('Failed to load tasks');
       }
-    } catch (e) {
-      throw ExternalError('Failed to fetch tasks: $e');
+    } catch (_) {
+      throw const ExternalError('Failed to fetch tasks');
     }
   }
+
 }
+
+

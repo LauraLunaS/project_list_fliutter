@@ -23,9 +23,8 @@ class AuthModule extends Module {
 
     //datasource
 
-    i.add<ILoginDatasource>(LoginDatasourceExternal.new);
+     i.add<ILoginDatasource>(RegisterDatasourceExternal.new);
     i.add<IRegisterDatasource>(RegisterDatasourceExternal.new);
-
     //repository
 
     i.add<IRegisterRepository>(RegisterRepositoryImpl.new);

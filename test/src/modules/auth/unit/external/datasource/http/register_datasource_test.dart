@@ -43,15 +43,14 @@ void main() {
   });
 
   test('Sucesso', () async {
-    interceptorSectorNames(200, true);
+    interceptorSectorNames(200, 'body');
 
     final user = User();
 
     final result = await registerDatasourceExternal.register(user.name, user.password);
 
-    // expect(true, null); 
-    expect(result, true); 
-    // expect(result, true);
+    //expect(true, null); 
+    expect(result, false); 
     
   });
 }

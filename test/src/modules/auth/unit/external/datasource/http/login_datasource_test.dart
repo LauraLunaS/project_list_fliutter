@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:nock/nock.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/external/datasources/http/login_datasource_external.dart';
@@ -22,7 +23,7 @@ void main() {
 
   dynamic interceptorSectorNames(int statusCode, dynamic body) {
 
-    final interceptor = nock(serverAdrees).post('/sign_up_user')
+    final interceptor = nock(serverAdrees).post('/login')
       ..reply(
         statusCode,
         body,
@@ -47,7 +48,8 @@ void main() {
 
     final user = User();
 
-    final result = await loginDatasourceExternal.login(user.name, user.password);
+
+    final (result) = await loginDatasourceExternal.login(user.name, user.password);
 
     // expect(true, null); 
     expect(result, true); 

@@ -2,25 +2,33 @@ import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:nock/nock.dart';
+import 'package:project_list_fliutter/src/modules/auth/external/datasources/server_routes.dart';
 import 'package:project_list_fliutter/src/modules/task/domain/errors/error_datasource.dart';
 import 'package:project_list_fliutter/src/modules/task/external/datasources/http/post_add_tasks_datasources.dart';
 import 'package:project_list_fliutter/src/modules/task/infra/comm_packages/proto/pb/tasks.pb.dart';
 
+import 'post_task_datasource_test.mocks.dart';
+
+class MockAddTaskDatasourceExternal extends Mock implements PostAddTasksDatasource {}
+
+@GenerateMocks([PostAddTasksDatasource]) 
 void main() {
-  late PostAddTasksDatasource addTaskDatasourceExternal;
+  late MockPostAddTasksDatasource addTaskDatasourceExternal;
 
   setUpAll(() {
     nock.init();
   });
 
   setUp(() {
-    addTaskDatasourceExternal = PostAddTasksDatasource(http.Client());
+    addTaskDatasourceExternal = MockPostAddTasksDatasource(http.Client());
     nock.cleanAll();
   });
 
   dynamic interceptorSectorNames(int statusCode, String body) {
-    final interceptor = nock('http://127.0.0.1:10100').get('/add_task')
+    final interceptor = nock(serverAdrees).post('/add_task')
       ..reply(
         statusCode,
         'body',
@@ -28,25 +36,34 @@ void main() {
     return interceptor;
   }
 
-  // test('Erro 400', () async {
-  //   interceptorSectorNames(400, 'body');
+  test('Erro 400', () async {
+    interceptorSectorNames(400, 'body');
 
-  //   final task = Task();
+    final task = Task();
+    final taskEncoded = Uint8List(0); 
 
-  //   try {
-  //     await getTaskDatasourceExternal.getAllTasks(task.userId);
-  //   } catch (e) {
-  //     expect(e, isA<ExternalError>);
-  //   }
-  // });
+    when(addTaskDatasourceExternal.saveTask(any))
+      .thenThrow(ExternalError('erro'));
 
-  // test('Sucesso', () async {
-  //   interceptorSectorNames(200, 'body');
+    try {
+      await addTaskDatasourceExternal.saveTask(taskEncoded);
+    } catch (e) {
+      expect(e, isA<ExternalError>());
+    }
+  });
 
-  //   final task = Task();
 
-  //   final result = await addTaskDatasourceExternal.saveTask();
-  //   expect(result, isA<List<Task>>());
-    
-  // });
+  test('Sucesso', () async {
+    interceptorSectorNames(200, 'body');
+
+  final task = Task();
+  final taskEncoded = Uint8List(0);
+
+  when(addTaskDatasourceExternal.saveTask(any))
+    .thenAnswer((_) async => true); 
+
+  final result = await addTaskDatasourceExternal.saveTask(taskEncoded);
+  expect(result, true);
+});
+
 }

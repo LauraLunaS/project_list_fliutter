@@ -8,21 +8,22 @@ import 'package:project_list_fliutter/src/modules/auth/external/datasources/http
 import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pb.dart';
 import 'package:project_list_fliutter/src/modules/auth/external/datasources/server_routes.dart';
 
-@GenerateMocks([LoginDatasourceExternal])
+import 'login_datasource_test.mocks.dart';  
+
+@GenerateMocks([LoginDatasourceExternal])  
 void main() {
-  late LoginDatasourceExternal loginDatasourceExternal;
+  late MockLoginDatasourceExternal mockLoginDatasourceExternal;  
 
   setUpAll(() {
-    nock.init();
+    nock.init();  
   });
 
   setUp(() {
-    loginDatasourceExternal = LoginDatasourceExternal(http.Client());
-    nock.cleanAll();
+    mockLoginDatasourceExternal = MockLoginDatasourceExternal(http.Client());
+    nock.cleanAll();  
   });
 
   dynamic interceptorSectorNames(int statusCode, dynamic body) {
-
     final interceptor = nock(serverAdrees).post('/login')
       ..reply(
         statusCode,
@@ -32,28 +33,31 @@ void main() {
   }
 
   test('Erro 400', () async {
-    interceptorSectorNames(400, 'body');
+    interceptorSectorNames(400, 'Invalid credentials');
 
     final user = User();
 
+    when(mockLoginDatasourceExternal.login(user.name, user.password))
+        .thenThrow(CredentialsError('Invalid credentials'));
+
     try {
-      await loginDatasourceExternal.login(user.name, user.password);
+      await mockLoginDatasourceExternal.login(user.name, user.password);
     } catch (e) {
-      expect(e, isA<CredentialsError>);
+      expect(e, isA<CredentialsError>());
     }
   });
 
   test('Sucesso', () async {
-    interceptorSectorNames(200, true);
+    interceptorSectorNames(200, 'Login successful');
 
     final user = User();
 
+    when(mockLoginDatasourceExternal.login(user.name, user.password))
+        .thenAnswer((_) async => (user, null)); 
 
-    final (result) = await loginDatasourceExternal.login(user.name, user.password);
+    final (result, error) = await mockLoginDatasourceExternal.login(user.name, user.password);
 
-    // expect(true, null); 
-    expect(result, true); 
-    // expect(result, true);
-    
+    expect(result, isA<User?>());
+    expect(error, null);  
   });
 }

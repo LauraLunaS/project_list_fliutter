@@ -24,7 +24,6 @@ class RegisterDatasourceExternal implements IRegisterDatasource {
         body: AuthAdapter.encodeProto(userProto),
       );
 
-      // !!! qtd de else
       if (response.statusCode == 200) {
         final responseBodyString = String.fromCharCodes(response.bodyBytes);
         if (responseBodyString == 'Registration successful') {

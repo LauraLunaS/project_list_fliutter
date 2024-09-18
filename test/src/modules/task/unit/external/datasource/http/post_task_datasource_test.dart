@@ -22,7 +22,7 @@ void main() {
   });
 
   setUp(() {
-    addTaskDatasourceExternal = MockPostAddTasksDatasource(http.Client());
+    addTaskDatasourceExternal = MockPostAddTasksDatasource();
     nock.cleanAll();
   });
 
@@ -59,9 +59,9 @@ void main() {
   final taskEncoded = Uint8List(0);
 
   when(addTaskDatasourceExternal.saveTask(any))
-    .thenAnswer((_) async => true); 
+    .thenAnswer((_) async => (true, null)); 
 
-  final result = await addTaskDatasourceExternal.saveTask(taskEncoded);
+  final (result, erro) = await addTaskDatasourceExternal.saveTask(taskEncoded);
   expect(result, true);
 });
 

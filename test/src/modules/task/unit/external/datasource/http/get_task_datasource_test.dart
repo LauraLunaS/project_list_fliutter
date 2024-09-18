@@ -41,7 +41,7 @@ void main() {
     final task = Task();
 
     when(getTaskDatasourceExternal.getAllTasks(task.userId))
-        .thenThrow(ExternalError('Invalid credentials'));
+        .thenThrow(const ExternalError('Invalid credentials'));
 
     try {
       await getTaskDatasourceExternal.getAllTasks(task.userId);

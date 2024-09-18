@@ -4,10 +4,12 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
-import 'dart:typed_data' as _i5;
+import 'dart:typed_data' as _i6;
 
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:project_list_fliutter/src/modules/task/domain/errors/error_datasource.dart'
+    as _i5;
 import 'package:project_list_fliutter/src/modules/task/external/datasources/http/post_add_tasks_datasources.dart'
     as _i3;
 
@@ -39,7 +41,7 @@ class _FakeClient_0 extends _i1.SmartFake implements _i2.Client {
 /// See the documentation for Mockito's code generation for more information.
 class MockPostAddTasksDatasource extends _i1.Mock
     implements _i3.PostAddTasksDatasource {
-  MockPostAddTasksDatasource(_i2.Client client) {
+  MockPostAddTasksDatasource() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -53,11 +55,14 @@ class MockPostAddTasksDatasource extends _i1.Mock
       ) as _i2.Client);
 
   @override
-  _i4.Future<bool?> saveTask(_i5.Uint8List? taskEncoded) => (super.noSuchMethod(
+  _i4.Future<(bool?, _i5.CreateTaskError?)> saveTask(
+          _i6.Uint8List? taskEncoded) =>
+      (super.noSuchMethod(
         Invocation.method(
           #saveTask,
           [taskEncoded],
         ),
-        returnValue: _i4.Future<bool?>.value(),
-      ) as _i4.Future<bool?>);
+        returnValue:
+            _i4.Future<(bool?, _i5.CreateTaskError?)>.value((null, null)),
+      ) as _i4.Future<(bool?, _i5.CreateTaskError?)>);
 }

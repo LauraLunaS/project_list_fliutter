@@ -1,11 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pb.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/repositories/login_repository.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/datasources/login_datasource.dart';
 
-class MockILoginDatasource extends Mock implements ILoginDatasource {}
+import 'login_repository_test.mocks.dart';
+
+@GenerateMocks([ILoginDatasource])
 
 void main() {
   late LoginRepositoryImpl repository;
@@ -23,7 +26,7 @@ void main() {
     when(mockDatasource.login(user.name, user.password))
         .thenAnswer((_) async => (user, error));
 
-    final result = await mockDatasource.login(user.name, user.password);
+    final result = await repository.login(user.name, user.password);
       
     expect(result.$1, user); 
   });

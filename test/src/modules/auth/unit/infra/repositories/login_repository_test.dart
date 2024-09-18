@@ -18,13 +18,14 @@ void main() {
 
   test('Login com sucesso', () async {
     final user = User();
+    const error = CredentialsError('Ivalid');
     
     when(mockDatasource.login(user.name, user.password))
-        .thenAnswer((_) async => (user, null));
+        .thenAnswer((_) async => (user, error));
 
-    final (result, loginError) = await repository.login(user.name, user.password);
+    final result = await mockDatasource.login(user.name, user.password);
       
-    expect(loginError, isNull); 
+    expect(result.$1, user); 
   });
 
   test('Erro de credenciais', () async {

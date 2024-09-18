@@ -12,7 +12,6 @@ import 'package:project_list_fliutter/src/modules/task/infra/comm_packages/proto
 
 import 'post_task_datasource_test.mocks.dart';
 
-class MockAddTaskDatasourceExternal extends Mock implements PostAddTasksDatasource {}
 
 @GenerateMocks([PostAddTasksDatasource]) 
 void main() {
@@ -43,7 +42,7 @@ void main() {
     final taskEncoded = Uint8List(0); 
 
     when(addTaskDatasourceExternal.saveTask(any))
-      .thenThrow(ExternalError('erro'));
+      .thenThrow(const ExternalError('erro'));
 
     try {
       await addTaskDatasourceExternal.saveTask(taskEncoded);

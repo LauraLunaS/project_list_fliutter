@@ -4,11 +4,10 @@ import 'package:mockito/mockito.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pb.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/repositories/login_repository.dart';
-import 'package:project_list_fliutter/src/modules/auth/infra/datasources/login_datasource.dart';
 
 import 'login_repository_test.mocks.dart';
 
-@GenerateMocks([ILoginDatasource])
+@GenerateMocks([LoginRepositoryImpl])
 
 void main() {
   late LoginRepositoryImpl repository;
@@ -23,25 +22,26 @@ void main() {
     final user = User();
     const error = CredentialsError('Ivalid');
     
-    when(mockDatasource.login(user.name, user.password))
+    when(repository.login(user.name, user.password))
         .thenAnswer((_) async => (user, error));
 
-    final result = await repository.login(user.name, user.password);
+    final (result, erro) = await repository.login(user.name, user.password);
       
-    expect(result.$1, user); 
+    expect(result, user);
+    expect(erro, error);
   });
 
   test('Erro de credenciais', () async {
     final user = User(); 
     const error = CredentialsError('Invalid response from the server');
 
-    when(mockDatasource.login(user.name, user.password))
+    when(repository.login(user.name, user.password))
         .thenAnswer((_) async => (null, error));
 
     final (result, loginError) = await repository.login(user.name, user.password);
 
-    expect(loginError, isNotNull); // loginError não deve ser nulo
-    expect(loginError, error);     // o erro retornado deve ser o CredentialsError simulado
-    expect(result, isNull);       // o resultado deve ser nulo
+    expect(result, null);
+    expect(loginError, error);
+  
   });
 }

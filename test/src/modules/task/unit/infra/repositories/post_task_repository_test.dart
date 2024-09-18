@@ -10,7 +10,7 @@ import 'package:project_list_fliutter/src/modules/task/infra/datasources/save_ta
 
 import 'post_task_repository_test.mocks.dart';
 
-@GenerateMocks([ISaveTaskDatasource])
+@GenerateMocks([PostTaskRepositoryImpl])
 
 void main() {
   late PostTaskRepositoryImpl repository;
@@ -21,21 +21,27 @@ void main() {
     repository = PostTaskRepositoryImpl(mockDatasource);
   });
 
-  test('adicionar task', () async {
-    final task = Task(id: '1', task: 'tasa', userId: '2'); 
-    final taskEncoded = Uint8List(0); 
-    const erro = CreateTaskError('Invalid');
+  test('sucesso ao adicionar task', () async {
+    final task = Task(); 
 
-    when(mockDatasource.saveTask(taskEncoded))
+    when(repository.addTask(task, task.userId))
         .thenAnswer((_) async => (true, null)); 
 
     final (result, error) = await repository.addTask(task, task.userId);
 
     expect(result, true);
+    expect(error, null);
   });
 
-  test('Erro ao recuperar lista de tasks', () async {
+  test('Erro ao adicionar task', () async {
     final task = Task();
     
+    when(repository.addTask(task, task.userId))
+        .thenAnswer((_) async => (false, null)); 
+
+    final (result, erro) = await repository.addTask(task, task.userId);
+
+    expect(result, null);
+    expect(erro, isA<CreateTaskError>());
   });
 }

@@ -14,7 +14,6 @@ class PostTaskRepositoryImpl implements IPostTaskRepository {
     try {
       final taskEncoded = TaskAdapter.encodeProto(task, userId);
       final (res, erro) = await datasource.saveTask(taskEncoded);
-      print('$res, $erro');
       if (res == true) {
         return (true, null);
       } else {

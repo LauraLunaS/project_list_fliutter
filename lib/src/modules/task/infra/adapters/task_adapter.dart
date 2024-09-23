@@ -3,28 +3,22 @@ import 'package:project_list_fliutter/src/modules/task/infra/comm_packages/proto
 import 'package:project_list_fliutter/src/modules/task/domain/errors/error_datasource.dart';
 
 class TaskAdapter {
-  static Task decodeProto(Uint8List encodedUserProto) {
+  static Task? decodeProto(Uint8List? encodedUserProto) {
     try {
-      final taskProto = Task.fromBuffer(encodedUserProto); 
-      return Task(
-        id: taskProto.id,
-        task: taskProto.task,
-        userId: taskProto.userId,
-      );
+      if (encodedUserProto != null) {
+        return Task.fromBuffer(encodedUserProto);
+      }
+      return null;
     } catch (e) {
-      throw InfraError('Failed to decode Task proto: $e');
+      throw const InfraError('Failed to decode Task proto');
     }
   }
 
   static Uint8List encodeProto(Task taskModel, String userId) {
     try {
-      final taskProto = Task()
-        ..id = taskModel.id
-        ..task = taskModel.task
-        ..userId = userId;
-      return taskProto.writeToBuffer();
+      return taskModel.writeToBuffer();
     } catch (e) {
-      throw InfraError('Failed to encode Task proto: $e');
+      throw const InfraError('Failed to encode Task proto');
     }
   }
 }

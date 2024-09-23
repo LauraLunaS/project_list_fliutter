@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:project_list_fliutter/src/modules/task/domain/errors/error_datasource.dart';
+
 abstract class ISaveTaskDatasource {
-  Future<bool?> saveTask(Uint8List task);
+  Future<(bool?, CreateTaskError?)> saveTask(Uint8List task);
 }

@@ -14,7 +14,7 @@ class LoginRepositoryImpl implements ILoginRepository {
       final (user, error) = await datasource.login(username, password);
       return (user, error); 
     } catch (e) {
-      throw CredentialsError('An unexpected error occurred: ${e.toString()}');
+      throw const CredentialsError('An unexpected error occurred:');
     }
   }
 }

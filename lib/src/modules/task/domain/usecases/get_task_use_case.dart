@@ -3,7 +3,7 @@ import 'package:project_list_fliutter/src/modules/task/domain/repositories/get_t
 import 'package:project_list_fliutter/src/modules/task/infra/comm_packages/proto/pb/tasks.pb.dart';
 
 abstract class IGetTaskUseCase {
-  Future<List<Task>> getTasks(String userId);
+  Future<List<Task?>> getTasks(String userId);
 }
 
 class GetTaskUseCase implements IGetTaskUseCase {
@@ -12,7 +12,7 @@ class GetTaskUseCase implements IGetTaskUseCase {
   GetTaskUseCase(this.repository);
 
   @override
-  Future<List<Task>> getTasks(String userId) async {
+  Future<List<Task?>> getTasks(String userId) async {
     try {
       return await repository.getTasks(userId);
     } on DomainError catch (e) {

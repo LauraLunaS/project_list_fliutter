@@ -9,7 +9,7 @@ class GetTaskRepositoryImpl implements IGetTaskRepository {
   GetTaskRepositoryImpl(this.datasource);
 
   @override
-  Future<List<Task>> getTasks(String userId) async {
+  Future<List<Task?>> getTasks(String userId) async {
     try {
       final tasks = await datasource.getAllTasks(userId);
       return tasks.isNotEmpty ? tasks : <Task>[];

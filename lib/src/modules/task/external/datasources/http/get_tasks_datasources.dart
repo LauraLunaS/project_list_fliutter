@@ -12,7 +12,7 @@ class GetTaskDatasourceExternal implements IGetAllTasksDatasource {
   GetTaskDatasourceExternal(this.client);
 
   @override
-  Future<List<Task>> getAllTasks(String userId) async {
+  Future<List<Task?>> getAllTasks(String userId) async {
     try {
       final uri = Uri.parse(updateResponseRoute);
       final response = await client.get(
@@ -23,15 +23,21 @@ class GetTaskDatasourceExternal implements IGetAllTasksDatasource {
       if (response.statusCode == 200) {
         final Uint8List responseBodyBytes = response.bodyBytes;
         final tasksProto = Tasks.fromBuffer(responseBodyBytes);
-      
-        return tasksProto.tasks
-            .map((taskProto) => TaskAdapter.decodeProto(taskProto.writeToBuffer()))
-            .toList();
+
+         final tasks = tasksProto.tasks
+          .map((taskProto) => TaskAdapter.decodeProto(taskProto.writeToBuffer()))
+          .where((task) => task != null) 
+          .toList();
+
+        return tasks;
       } else {
-        throw ExternalError('Failed to load tasks: Status code ${response.statusCode}');
+        throw const ExternalError('Failed to load tasks');
       }
-    } catch (e) {
-      throw ExternalError('Failed to fetch tasks: $e');
+    } catch (_) {
+      throw const ExternalError('Failed to fetch tasks');
     }
   }
+
 }
+
+

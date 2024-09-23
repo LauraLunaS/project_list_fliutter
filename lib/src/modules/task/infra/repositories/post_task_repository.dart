@@ -13,13 +13,14 @@ class PostTaskRepositoryImpl implements IPostTaskRepository {
   Future<(bool?, CreateTaskError?)> addTask(Task task, String userId) async {
     try {
       final taskEncoded = TaskAdapter.encodeProto(task, userId);
-      final res = await datasource.saveTask(taskEncoded);
+      final (res, erro) = await datasource.saveTask(taskEncoded);
       if (res == true) {
         return (true, null);
       } else {
         return (null, const CreateTaskError('Error saving task'));
       }
     } catch (e) {
+      
       return (null, CreateTaskError('Failed to add task: ${e.toString()}'));
     }
   }

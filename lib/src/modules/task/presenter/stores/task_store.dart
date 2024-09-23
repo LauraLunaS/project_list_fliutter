@@ -98,8 +98,8 @@ abstract class ITaskStore with Store {
   Future<void> loadTaskHistory(String userId) async {
     isLoading = true;
     try {
-      List<Task> taskList = await getTaskUseCase.getTasks(userId);
-      tasks = ObservableList.of(taskList);
+      List<Task?> taskList = await getTaskUseCase.getTasks(userId);
+      tasks = ObservableList.of(taskList.where((task) => task != null).cast<Task>());
     } catch (e) {
       errorMessage = 'Failed to load tasks';
     } finally {

@@ -2,23 +2,28 @@ import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datas
 import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pb.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/repositories/login_repository.dart';
 
-class LoginUseCase {
+abstract class ILoginRecovery {
+  Future<(CredentialsError?, User?)> execute(String username, String password);
+}
+
+class LoginUseCase implements ILoginRecovery {
   final ILoginRepository repository;
 
   LoginUseCase(this.repository);
 
-  Future<User?> execute(String username, String password) async {
+  @override
+  Future<(CredentialsError?, User?)> execute(String username, String password) async {
     try {
       final (user, error) = await repository.login(username, password);
       if (error != null) {
-        throw error;
+        return (error, null);  
       }
       if (user == null) {
-        throw const CredentialsError('Invalid response from the server');
+        return (const CredentialsError('Invalid response from the server'), null);  
       }
-      return user;
+      return (null, user);  
     } catch (e) {
-      throw AuthError('Unexpected error during login: ${e.toString()}');
+      throw CredentialsError('Unexpected error during login: ${e.toString()}');
     }
   }
 }

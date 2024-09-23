@@ -2,11 +2,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:project_list_fliutter/src/modules/task/infra/comm_packages/proto/pb/tasks.pb.dart';
+import 'package:project_list_fliutter/src/modules/task/infra/datasources/get_all_tasks_datasource.dart';
 import 'package:project_list_fliutter/src/modules/task/infra/repositories/get_task_repository.dart';
 
 import 'get_task_repository_test.mocks.dart';
 
-@GenerateMocks([GetTaskRepositoryImpl])
+@GenerateMocks([GetTaskRepositoryImpl, IGetAllTasksDatasource])
 
 void main() {
   late GetTaskRepositoryImpl repository;

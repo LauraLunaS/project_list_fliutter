@@ -40,7 +40,7 @@ class _FakeClient_0 extends _i1.SmartFake implements _i2.Client {
 /// See the documentation for Mockito's code generation for more information.
 class MockGetTaskDatasourceExternal extends _i1.Mock
     implements _i3.GetTaskDatasourceExternal {
-  MockGetTaskDatasourceExternal(_i2.Client client) {
+  MockGetTaskDatasourceExternal() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -54,11 +54,12 @@ class MockGetTaskDatasourceExternal extends _i1.Mock
       ) as _i2.Client);
 
   @override
-  _i4.Future<List<_i5.Task>> getAllTasks(String? userId) => (super.noSuchMethod(
+  _i4.Future<List<_i5.Task?>> getAllTasks(String? userId) =>
+      (super.noSuchMethod(
         Invocation.method(
           #getAllTasks,
           [userId],
         ),
-        returnValue: _i4.Future<List<_i5.Task>>.value(<_i5.Task>[]),
-      ) as _i4.Future<List<_i5.Task>>);
+        returnValue: _i4.Future<List<_i5.Task?>>.value(<_i5.Task?>[]),
+      ) as _i4.Future<List<_i5.Task?>>);
 }

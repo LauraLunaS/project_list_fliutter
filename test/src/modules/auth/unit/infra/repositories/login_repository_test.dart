@@ -3,11 +3,12 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pb.dart';
+import 'package:project_list_fliutter/src/modules/auth/infra/datasources/login_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/repositories/login_repository.dart';
 
 import 'login_repository_test.mocks.dart';
 
-@GenerateMocks([LoginRepositoryImpl])
+@GenerateMocks([LoginRepositoryImpl, ILoginDatasource])
 
 void main() {
   late LoginRepositoryImpl repository;

@@ -3,15 +3,17 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart'
-    as _i5;
+    as _i6;
 import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pb.dart'
-    as _i4;
+    as _i5;
 import 'package:project_list_fliutter/src/modules/auth/infra/datasources/login_datasource.dart'
     as _i2;
+import 'package:project_list_fliutter/src/modules/auth/infra/repositories/login_repository.dart'
+    as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -26,16 +28,37 @@ import 'package:project_list_fliutter/src/modules/auth/infra/datasources/login_d
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-/// A class which mocks [ILoginDatasource].
+class _FakeILoginDatasource_0 extends _i1.SmartFake
+    implements _i2.ILoginDatasource {
+  _FakeILoginDatasource_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+/// A class which mocks [LoginRepositoryImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockILoginDatasource extends _i1.Mock implements _i2.ILoginDatasource {
-  MockILoginDatasource() {
+class MockLoginRepositoryImpl extends _i1.Mock
+    implements _i3.LoginRepositoryImpl {
+  MockLoginRepositoryImpl() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<(_i4.User?, _i5.CredentialsError?)> login(
+  _i2.ILoginDatasource get datasource => (super.noSuchMethod(
+        Invocation.getter(#datasource),
+        returnValue: _FakeILoginDatasource_0(
+          this,
+          Invocation.getter(#datasource),
+        ),
+      ) as _i2.ILoginDatasource);
+
+  @override
+  _i4.Future<(_i5.User?, _i6.CredentialsError?)> login(
     String? username,
     String? password,
   ) =>
@@ -48,6 +71,32 @@ class MockILoginDatasource extends _i1.Mock implements _i2.ILoginDatasource {
           ],
         ),
         returnValue:
-            _i3.Future<(_i4.User?, _i5.CredentialsError?)>.value((null, null)),
-      ) as _i3.Future<(_i4.User?, _i5.CredentialsError?)>);
+            _i4.Future<(_i5.User?, _i6.CredentialsError?)>.value((null, null)),
+      ) as _i4.Future<(_i5.User?, _i6.CredentialsError?)>);
+}
+
+/// A class which mocks [ILoginDatasource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockILoginDatasource extends _i1.Mock implements _i2.ILoginDatasource {
+  MockILoginDatasource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<(_i5.User?, _i6.CredentialsError?)> login(
+    String? username,
+    String? password,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #login,
+          [
+            username,
+            password,
+          ],
+        ),
+        returnValue:
+            _i4.Future<(_i5.User?, _i6.CredentialsError?)>.value((null, null)),
+      ) as _i4.Future<(_i5.User?, _i6.CredentialsError?)>);
 }

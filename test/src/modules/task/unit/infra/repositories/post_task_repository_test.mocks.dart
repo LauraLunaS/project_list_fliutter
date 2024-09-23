@@ -3,14 +3,18 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
-import 'dart:typed_data' as _i5;
+import 'dart:async' as _i4;
+import 'dart:typed_data' as _i7;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:project_list_fliutter/src/modules/task/domain/errors/error_datasource.dart'
-    as _i4;
+    as _i5;
+import 'package:project_list_fliutter/src/modules/task/infra/comm_packages/proto/pb/tasks.pb.dart'
+    as _i6;
 import 'package:project_list_fliutter/src/modules/task/infra/datasources/save_task_datasource.dart'
     as _i2;
+import 'package:project_list_fliutter/src/modules/task/infra/repositories/post_task_repository.dart'
+    as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -25,6 +29,53 @@ import 'package:project_list_fliutter/src/modules/task/infra/datasources/save_ta
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeISaveTaskDatasource_0 extends _i1.SmartFake
+    implements _i2.ISaveTaskDatasource {
+  _FakeISaveTaskDatasource_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+/// A class which mocks [PostTaskRepositoryImpl].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockPostTaskRepositoryImpl extends _i1.Mock
+    implements _i3.PostTaskRepositoryImpl {
+  MockPostTaskRepositoryImpl() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.ISaveTaskDatasource get datasource => (super.noSuchMethod(
+        Invocation.getter(#datasource),
+        returnValue: _FakeISaveTaskDatasource_0(
+          this,
+          Invocation.getter(#datasource),
+        ),
+      ) as _i2.ISaveTaskDatasource);
+
+  @override
+  _i4.Future<(bool?, _i5.CreateTaskError?)> addTask(
+    _i6.Task? task,
+    String? userId,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addTask,
+          [
+            task,
+            userId,
+          ],
+        ),
+        returnValue:
+            _i4.Future<(bool?, _i5.CreateTaskError?)>.value((null, null)),
+      ) as _i4.Future<(bool?, _i5.CreateTaskError?)>);
+}
+
 /// A class which mocks [ISaveTaskDatasource].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -35,13 +86,13 @@ class MockISaveTaskDatasource extends _i1.Mock
   }
 
   @override
-  _i3.Future<(bool?, _i4.CreateTaskError?)> saveTask(_i5.Uint8List? task) =>
+  _i4.Future<(bool?, _i5.CreateTaskError?)> saveTask(_i7.Uint8List? task) =>
       (super.noSuchMethod(
         Invocation.method(
           #saveTask,
           [task],
         ),
         returnValue:
-            _i3.Future<(bool?, _i4.CreateTaskError?)>.value((null, null)),
-      ) as _i3.Future<(bool?, _i4.CreateTaskError?)>);
+            _i4.Future<(bool?, _i5.CreateTaskError?)>.value((null, null)),
+      ) as _i4.Future<(bool?, _i5.CreateTaskError?)>);
 }

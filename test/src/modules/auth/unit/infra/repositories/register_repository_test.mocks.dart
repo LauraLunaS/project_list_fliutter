@@ -3,13 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart'
-    as _i4;
+    as _i5;
 import 'package:project_list_fliutter/src/modules/auth/infra/datasources/register_datasource.dart'
     as _i2;
+import 'package:project_list_fliutter/src/modules/auth/infra/repositories/register_repository.dart'
+    as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -24,17 +26,37 @@ import 'package:project_list_fliutter/src/modules/auth/infra/datasources/registe
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-/// A class which mocks [IRegisterDatasource].
+class _FakeIRegisterDatasource_0 extends _i1.SmartFake
+    implements _i2.IRegisterDatasource {
+  _FakeIRegisterDatasource_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+/// A class which mocks [RegisterRepositoryImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockIRegisterDatasource extends _i1.Mock
-    implements _i2.IRegisterDatasource {
-  MockIRegisterDatasource() {
+class MockRegisterRepositoryImpl extends _i1.Mock
+    implements _i3.RegisterRepositoryImpl {
+  MockRegisterRepositoryImpl() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<(bool?, _i4.CredentialsError?)> register(
+  _i2.IRegisterDatasource get datasource => (super.noSuchMethod(
+        Invocation.getter(#datasource),
+        returnValue: _FakeIRegisterDatasource_0(
+          this,
+          Invocation.getter(#datasource),
+        ),
+      ) as _i2.IRegisterDatasource);
+
+  @override
+  _i4.Future<(bool?, _i5.CredentialsError?)> register(
     String? username,
     String? password,
   ) =>
@@ -47,6 +69,33 @@ class MockIRegisterDatasource extends _i1.Mock
           ],
         ),
         returnValue:
-            _i3.Future<(bool?, _i4.CredentialsError?)>.value((null, null)),
-      ) as _i3.Future<(bool?, _i4.CredentialsError?)>);
+            _i4.Future<(bool?, _i5.CredentialsError?)>.value((null, null)),
+      ) as _i4.Future<(bool?, _i5.CredentialsError?)>);
+}
+
+/// A class which mocks [IRegisterDatasource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockIRegisterDatasource extends _i1.Mock
+    implements _i2.IRegisterDatasource {
+  MockIRegisterDatasource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<(bool?, _i5.CredentialsError?)> register(
+    String? username,
+    String? password,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #register,
+          [
+            username,
+            password,
+          ],
+        ),
+        returnValue:
+            _i4.Future<(bool?, _i5.CredentialsError?)>.value((null, null)),
+      ) as _i4.Future<(bool?, _i5.CredentialsError?)>);
 }

@@ -34,11 +34,11 @@ class MockIGetTaskRepository extends _i1.Mock
   }
 
   @override
-  _i3.Future<List<_i4.Task>> getTasks(String? userId) => (super.noSuchMethod(
+  _i3.Future<List<_i4.Task?>> getTasks(String? userId) => (super.noSuchMethod(
         Invocation.method(
           #getTasks,
           [userId],
         ),
-        returnValue: _i3.Future<List<_i4.Task>>.value(<_i4.Task>[]),
-      ) as _i3.Future<List<_i4.Task>>);
+        returnValue: _i3.Future<List<_i4.Task?>>.value(<_i4.Task?>[]),
+      ) as _i3.Future<List<_i4.Task?>>);
 }

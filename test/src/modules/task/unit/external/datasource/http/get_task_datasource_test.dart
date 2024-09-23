@@ -20,7 +20,7 @@ void main() {
   });
 
   setUp(() {
-    getTaskDatasourceExternal = MockGetTaskDatasourceExternal(http.Client());
+    getTaskDatasourceExternal = MockGetTaskDatasourceExternal();
     nock.cleanAll();
   });
 
